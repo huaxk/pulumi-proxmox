@@ -45,7 +45,7 @@ setup(name='pulumi_proxmox',
       keywords='pulumi proxmox',
       url='https://pulumi.io',
       project_urls={
-          'Repository': 'https://github.com/pulumi/pulumi-proxmox'
+          'Repository': 'https://github.com/huaxk/pulumi-proxmox'
       },
       license='Apache-2.0',
       packages=find_packages(),

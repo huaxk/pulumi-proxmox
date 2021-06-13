@@ -1,5 +1,5 @@
 {
-    "name": "@pulumi/proxmox",
+    "name": "@huaxk/pulumi-proxmox",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing proxmox cloud resources.",
     "keywords": [
@@ -7,7 +7,7 @@
         "proxmox"
     ],
     "homepage": "https://pulumi.io",
-    "repository": "https://github.com/pulumi/pulumi-proxmox",
+    "repository": "https://github.com/huaxk/pulumi-proxmox",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc"

@@ -100,7 +100,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:    []string{"pulumi", "proxmox"},
 		License:     "Apache-2.0",
 		Homepage:    "https://pulumi.io",
-		Repository:  "https://github.com/pulumi/pulumi-proxmox",
+		Repository:  "https://github.com/huaxk/pulumi-proxmox",
 		Config:      map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
 			// no additional points are required.
@@ -131,6 +131,7 @@ func Provider() tfbridge.ProviderInfo {
 			// "aws_ami": {Tok: makeDataSource(mainMod, "getAmi")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
+			PackageName: "@huaxk/pulumi-proxmox",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
