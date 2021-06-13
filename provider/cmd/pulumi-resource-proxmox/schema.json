@@ -1,0 +1,2152 @@
+{
+    "name": "proxmox",
+    "description": "A Pulumi package for creating and managing proxmox cloud resources.",
+    "keywords": [
+        "pulumi",
+        "proxmox"
+    ],
+    "homepage": "https://pulumi.io",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`proxmox` Terraform Provider](https://github.com/terraform-providers/terraform-provider-proxmox).",
+    "repository": "https://github.com/pulumi/pulumi-proxmox",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "config": {
+        "variables": {
+            "pmApiTokenId": {
+                "type": "string",
+                "description": "API TokenID e.g. root@pam!mytesttoken\n"
+            },
+            "pmApiTokenSecret": {
+                "type": "string",
+                "description": "The secret uuid corresponding to a TokenID\n"
+            },
+            "pmApiUrl": {
+                "type": "string",
+                "description": "https://host.fqdn:8006/api2/json\n"
+            },
+            "pmDangerouslyIgnoreUnknownAttributes": {
+                "type": "boolean",
+                "description": "By default this provider will exit if an unknown attribute is found. This is to prevent the accidential destruction of\nVMs or Data when something in the proxmox API has changed/updated and is not confirmed to work with this provider. Set\nthis to true at your own risk. It may allow you to proceed in cases when the provider refuses to work, but be aware of\nthe danger in doing so.\n"
+            },
+            "pmLogEnable": {
+                "type": "boolean",
+                "description": "Enable provider logging to get proxmox API logs\n"
+            },
+            "pmLogFile": {
+                "type": "string",
+                "description": "Write logs to this specific file\n"
+            },
+            "pmLogLevels": {
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "description": "Configure the logging level to display; trace, debug, info, warn, etc\n"
+            },
+            "pmOtp": {
+                "type": "string",
+                "description": "OTP 2FA code (if required)\n"
+            },
+            "pmParallel": {
+                "type": "integer"
+            },
+            "pmPassword": {
+                "type": "string",
+                "description": "Password to authenticate into proxmox\n"
+            },
+            "pmTimeout": {
+                "type": "integer"
+            },
+            "pmTlsInsecure": {
+                "type": "boolean",
+                "description": "By default, every TLS connection is verified to be secure. This option allows terraform to proceed and operate on\nservers considered insecure. For example if you're connecting to a remote host and you do not have the CA cert that\nissued the proxmox api url's certificate.\n"
+            },
+            "pmUser": {
+                "type": "string",
+                "description": "Username e.g. myuser or myuser@pam\n"
+            }
+        },
+        "defaults": [
+            "pmApiUrl"
+        ]
+    },
+    "types": {
+        "proxmox:index/LXCContainerFeatures:LXCContainerFeatures": {
+            "properties": {
+                "fuse": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "keyctl": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mount": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "nesting": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "proxmox:index/LXCContainerMountpoint:LXCContainerMountpoint": {
+            "properties": {
+                "acl": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "backup": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "file": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "key": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mp": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "quota": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "replicate": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "shared": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "size": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "slot": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "storage": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "volume": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "key",
+                "mp",
+                "size",
+                "slot",
+                "storage"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "file",
+                        "key",
+                        "mp",
+                        "size",
+                        "slot",
+                        "storage",
+                        "volume"
+                    ]
+                }
+            }
+        },
+        "proxmox:index/LXCContainerNetwork:LXCContainerNetwork": {
+            "properties": {
+                "bridge": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "firewall": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "gw": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "gw6": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "hwaddr": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "ip": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "ip6": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mtu": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "rate": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "tag": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "trunks": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "hwaddr",
+                        "name",
+                        "tag",
+                        "trunks",
+                        "type"
+                    ]
+                }
+            }
+        },
+        "proxmox:index/LXCContainerRootfs:LXCContainerRootfs": {
+            "properties": {
+                "size": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "storage": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "volume": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "size",
+                "storage"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "size",
+                        "storage",
+                        "volume"
+                    ]
+                }
+            }
+        },
+        "proxmox:index/LXCDiskMountoptions:LXCDiskMountoptions": {
+            "properties": {
+                "noatime": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "nodev": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "noexec": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "nosuid": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "proxmox:index/QemuVMDisk:QemuVMDisk": {
+            "properties": {
+                "backup": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "cache": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "discard": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "file": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "format": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "iothread": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mbps": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mbpsRd": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mbpsRdMax": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mbpsWr": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "mbpsWrMax": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "media": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "replicate": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "size": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "slot": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "ssd": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "storage": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "storageType": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "volume": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "size",
+                "storage",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "file",
+                        "format",
+                        "media",
+                        "size",
+                        "slot",
+                        "storage",
+                        "storageType",
+                        "type",
+                        "volume"
+                    ]
+                }
+            }
+        },
+        "proxmox:index/QemuVMNetwork:QemuVMNetwork": {
+            "properties": {
+                "bridge": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "firewall": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "linkDown": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "macaddr": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "model": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "queues": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "rate": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "tag": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "model"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "macaddr",
+                        "model",
+                        "queues",
+                        "rate"
+                    ]
+                }
+            }
+        },
+        "proxmox:index/QemuVMSerial:QemuVMSerial": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "id",
+                "type"
+            ]
+        },
+        "proxmox:index/QemuVMUnusedDisk:QemuVMUnusedDisk": {
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "slot": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "storage": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "file",
+                        "slot",
+                        "storage"
+                    ]
+                }
+            }
+        },
+        "proxmox:index/QemuVMVga:QemuVMVga": {
+            "properties": {
+                "memory": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        }
+    },
+    "provider": {
+        "description": "The provider type for the proxmox package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "pmApiTokenId": {
+                "type": "string",
+                "description": "API TokenID e.g. root@pam!mytesttoken\n"
+            },
+            "pmApiTokenSecret": {
+                "type": "string",
+                "description": "The secret uuid corresponding to a TokenID\n"
+            },
+            "pmApiUrl": {
+                "type": "string",
+                "description": "https://host.fqdn:8006/api2/json\n"
+            },
+            "pmDangerouslyIgnoreUnknownAttributes": {
+                "type": "boolean",
+                "description": "By default this provider will exit if an unknown attribute is found. This is to prevent the accidential destruction of\nVMs or Data when something in the proxmox API has changed/updated and is not confirmed to work with this provider. Set\nthis to true at your own risk. It may allow you to proceed in cases when the provider refuses to work, but be aware of\nthe danger in doing so.\n"
+            },
+            "pmLogEnable": {
+                "type": "boolean",
+                "description": "Enable provider logging to get proxmox API logs\n"
+            },
+            "pmLogFile": {
+                "type": "string",
+                "description": "Write logs to this specific file\n"
+            },
+            "pmLogLevels": {
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "description": "Configure the logging level to display; trace, debug, info, warn, etc\n"
+            },
+            "pmOtp": {
+                "type": "string",
+                "description": "OTP 2FA code (if required)\n"
+            },
+            "pmParallel": {
+                "type": "integer"
+            },
+            "pmPassword": {
+                "type": "string",
+                "description": "Password to authenticate into proxmox\n"
+            },
+            "pmTimeout": {
+                "type": "integer"
+            },
+            "pmTlsInsecure": {
+                "type": "boolean",
+                "description": "By default, every TLS connection is verified to be secure. This option allows terraform to proceed and operate on\nservers considered insecure. For example if you're connecting to a remote host and you do not have the CA cert that\nissued the proxmox api url's certificate.\n"
+            },
+            "pmUser": {
+                "type": "string",
+                "description": "Username e.g. myuser or myuser@pam\n"
+            }
+        },
+        "required": [
+            "pmApiUrl"
+        ],
+        "inputProperties": {
+            "pmApiTokenId": {
+                "type": "string",
+                "description": "API TokenID e.g. root@pam!mytesttoken\n"
+            },
+            "pmApiTokenSecret": {
+                "type": "string",
+                "description": "The secret uuid corresponding to a TokenID\n"
+            },
+            "pmApiUrl": {
+                "type": "string",
+                "description": "https://host.fqdn:8006/api2/json\n"
+            },
+            "pmDangerouslyIgnoreUnknownAttributes": {
+                "type": "boolean",
+                "description": "By default this provider will exit if an unknown attribute is found. This is to prevent the accidential destruction of\nVMs or Data when something in the proxmox API has changed/updated and is not confirmed to work with this provider. Set\nthis to true at your own risk. It may allow you to proceed in cases when the provider refuses to work, but be aware of\nthe danger in doing so.\n"
+            },
+            "pmLogEnable": {
+                "type": "boolean",
+                "description": "Enable provider logging to get proxmox API logs\n"
+            },
+            "pmLogFile": {
+                "type": "string",
+                "description": "Write logs to this specific file\n"
+            },
+            "pmLogLevels": {
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "pulumi.json#/Any"
+                },
+                "description": "Configure the logging level to display; trace, debug, info, warn, etc\n"
+            },
+            "pmOtp": {
+                "type": "string",
+                "description": "OTP 2FA code (if required)\n"
+            },
+            "pmParallel": {
+                "type": "integer"
+            },
+            "pmPassword": {
+                "type": "string",
+                "description": "Password to authenticate into proxmox\n"
+            },
+            "pmTimeout": {
+                "type": "integer"
+            },
+            "pmTlsInsecure": {
+                "type": "boolean",
+                "description": "By default, every TLS connection is verified to be secure. This option allows terraform to proceed and operate on\nservers considered insecure. For example if you're connecting to a remote host and you do not have the CA cert that\nissued the proxmox api url's certificate.\n"
+            },
+            "pmUser": {
+                "type": "string",
+                "description": "Username e.g. myuser or myuser@pam\n"
+            }
+        },
+        "requiredInputs": [
+            "pmApiUrl"
+        ]
+    },
+    "resources": {
+        "proxmox:index/lXCContainer:LXCContainer": {
+            "properties": {
+                "arch": {
+                    "type": "string"
+                },
+                "bwlimit": {
+                    "type": "integer"
+                },
+                "cmode": {
+                    "type": "string"
+                },
+                "console": {
+                    "type": "boolean"
+                },
+                "cores": {
+                    "type": "integer"
+                },
+                "cpulimit": {
+                    "type": "integer"
+                },
+                "cpuunits": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "features": {
+                    "$ref": "#/types/proxmox:index/LXCContainerFeatures:LXCContainerFeatures"
+                },
+                "force": {
+                    "type": "boolean"
+                },
+                "hookscript": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "ignoreUnpackErrors": {
+                    "type": "boolean"
+                },
+                "lock": {
+                    "type": "string"
+                },
+                "memory": {
+                    "type": "integer"
+                },
+                "mountpoints": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/LXCContainerMountpoint:LXCContainerMountpoint"
+                    }
+                },
+                "nameserver": {
+                    "type": "string"
+                },
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/LXCContainerNetwork:LXCContainerNetwork"
+                    }
+                },
+                "onboot": {
+                    "type": "boolean"
+                },
+                "ostemplate": {
+                    "type": "string"
+                },
+                "ostype": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "pool": {
+                    "type": "string"
+                },
+                "protection": {
+                    "type": "boolean"
+                },
+                "restore": {
+                    "type": "boolean"
+                },
+                "rootfs": {
+                    "$ref": "#/types/proxmox:index/LXCContainerRootfs:LXCContainerRootfs"
+                },
+                "searchdomain": {
+                    "type": "string"
+                },
+                "sshPublicKeys": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "boolean"
+                },
+                "startup": {
+                    "type": "string"
+                },
+                "swap": {
+                    "type": "integer"
+                },
+                "tags": {
+                    "type": "string"
+                },
+                "targetNode": {
+                    "type": "string"
+                },
+                "template": {
+                    "type": "boolean"
+                },
+                "tty": {
+                    "type": "integer"
+                },
+                "unique": {
+                    "type": "boolean"
+                },
+                "unprivileged": {
+                    "type": "boolean"
+                },
+                "unuseds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "vmid": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "ostype",
+                "targetNode"
+            ],
+            "inputProperties": {
+                "arch": {
+                    "type": "string"
+                },
+                "bwlimit": {
+                    "type": "integer"
+                },
+                "cmode": {
+                    "type": "string"
+                },
+                "console": {
+                    "type": "boolean"
+                },
+                "cores": {
+                    "type": "integer"
+                },
+                "cpulimit": {
+                    "type": "integer"
+                },
+                "cpuunits": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "features": {
+                    "$ref": "#/types/proxmox:index/LXCContainerFeatures:LXCContainerFeatures"
+                },
+                "force": {
+                    "type": "boolean"
+                },
+                "hookscript": {
+                    "type": "string"
+                },
+                "hostname": {
+                    "type": "string"
+                },
+                "ignoreUnpackErrors": {
+                    "type": "boolean"
+                },
+                "lock": {
+                    "type": "string"
+                },
+                "memory": {
+                    "type": "integer"
+                },
+                "mountpoints": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/LXCContainerMountpoint:LXCContainerMountpoint"
+                    }
+                },
+                "nameserver": {
+                    "type": "string"
+                },
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/LXCContainerNetwork:LXCContainerNetwork"
+                    }
+                },
+                "onboot": {
+                    "type": "boolean"
+                },
+                "ostemplate": {
+                    "type": "string"
+                },
+                "ostype": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "pool": {
+                    "type": "string"
+                },
+                "protection": {
+                    "type": "boolean"
+                },
+                "restore": {
+                    "type": "boolean"
+                },
+                "rootfs": {
+                    "$ref": "#/types/proxmox:index/LXCContainerRootfs:LXCContainerRootfs"
+                },
+                "searchdomain": {
+                    "type": "string"
+                },
+                "sshPublicKeys": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "boolean"
+                },
+                "startup": {
+                    "type": "string"
+                },
+                "swap": {
+                    "type": "integer"
+                },
+                "tags": {
+                    "type": "string"
+                },
+                "targetNode": {
+                    "type": "string"
+                },
+                "template": {
+                    "type": "boolean"
+                },
+                "tty": {
+                    "type": "integer"
+                },
+                "unique": {
+                    "type": "boolean"
+                },
+                "unprivileged": {
+                    "type": "boolean"
+                },
+                "unuseds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "vmid": {
+                    "type": "integer"
+                }
+            },
+            "requiredInputs": [
+                "targetNode"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering LXCContainer resources.\n",
+                "properties": {
+                    "arch": {
+                        "type": "string"
+                    },
+                    "bwlimit": {
+                        "type": "integer"
+                    },
+                    "cmode": {
+                        "type": "string"
+                    },
+                    "console": {
+                        "type": "boolean"
+                    },
+                    "cores": {
+                        "type": "integer"
+                    },
+                    "cpulimit": {
+                        "type": "integer"
+                    },
+                    "cpuunits": {
+                        "type": "integer"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "features": {
+                        "$ref": "#/types/proxmox:index/LXCContainerFeatures:LXCContainerFeatures"
+                    },
+                    "force": {
+                        "type": "boolean"
+                    },
+                    "hookscript": {
+                        "type": "string"
+                    },
+                    "hostname": {
+                        "type": "string"
+                    },
+                    "ignoreUnpackErrors": {
+                        "type": "boolean"
+                    },
+                    "lock": {
+                        "type": "string"
+                    },
+                    "memory": {
+                        "type": "integer"
+                    },
+                    "mountpoints": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/LXCContainerMountpoint:LXCContainerMountpoint"
+                        }
+                    },
+                    "nameserver": {
+                        "type": "string"
+                    },
+                    "networks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/LXCContainerNetwork:LXCContainerNetwork"
+                        }
+                    },
+                    "onboot": {
+                        "type": "boolean"
+                    },
+                    "ostemplate": {
+                        "type": "string"
+                    },
+                    "ostype": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "pool": {
+                        "type": "string"
+                    },
+                    "protection": {
+                        "type": "boolean"
+                    },
+                    "restore": {
+                        "type": "boolean"
+                    },
+                    "rootfs": {
+                        "$ref": "#/types/proxmox:index/LXCContainerRootfs:LXCContainerRootfs"
+                    },
+                    "searchdomain": {
+                        "type": "string"
+                    },
+                    "sshPublicKeys": {
+                        "type": "string"
+                    },
+                    "start": {
+                        "type": "boolean"
+                    },
+                    "startup": {
+                        "type": "string"
+                    },
+                    "swap": {
+                        "type": "integer"
+                    },
+                    "tags": {
+                        "type": "string"
+                    },
+                    "targetNode": {
+                        "type": "string"
+                    },
+                    "template": {
+                        "type": "boolean"
+                    },
+                    "tty": {
+                        "type": "integer"
+                    },
+                    "unique": {
+                        "type": "boolean"
+                    },
+                    "unprivileged": {
+                        "type": "boolean"
+                    },
+                    "unuseds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "vmid": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "proxmox:index/lXCDisk:LXCDisk": {
+            "properties": {
+                "acl": {
+                    "type": "boolean"
+                },
+                "backup": {
+                    "type": "boolean"
+                },
+                "container": {
+                    "type": "string"
+                },
+                "mountoptions": {
+                    "$ref": "#/types/proxmox:index/LXCDiskMountoptions:LXCDiskMountoptions"
+                },
+                "mp": {
+                    "type": "string"
+                },
+                "quota": {
+                    "type": "boolean"
+                },
+                "replicate": {
+                    "type": "boolean"
+                },
+                "shared": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "slot": {
+                    "type": "integer"
+                },
+                "storage": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "container",
+                "mp",
+                "size",
+                "slot",
+                "storage",
+                "volume"
+            ],
+            "inputProperties": {
+                "acl": {
+                    "type": "boolean"
+                },
+                "backup": {
+                    "type": "boolean"
+                },
+                "container": {
+                    "type": "string"
+                },
+                "mountoptions": {
+                    "$ref": "#/types/proxmox:index/LXCDiskMountoptions:LXCDiskMountoptions"
+                },
+                "mp": {
+                    "type": "string"
+                },
+                "quota": {
+                    "type": "boolean"
+                },
+                "replicate": {
+                    "type": "boolean"
+                },
+                "shared": {
+                    "type": "boolean"
+                },
+                "size": {
+                    "type": "string"
+                },
+                "slot": {
+                    "type": "integer"
+                },
+                "storage": {
+                    "type": "string"
+                },
+                "volume": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": [
+                "container",
+                "mp",
+                "size",
+                "slot",
+                "storage"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering LXCDisk resources.\n",
+                "properties": {
+                    "acl": {
+                        "type": "boolean"
+                    },
+                    "backup": {
+                        "type": "boolean"
+                    },
+                    "container": {
+                        "type": "string"
+                    },
+                    "mountoptions": {
+                        "$ref": "#/types/proxmox:index/LXCDiskMountoptions:LXCDiskMountoptions"
+                    },
+                    "mp": {
+                        "type": "string"
+                    },
+                    "quota": {
+                        "type": "boolean"
+                    },
+                    "replicate": {
+                        "type": "boolean"
+                    },
+                    "shared": {
+                        "type": "boolean"
+                    },
+                    "size": {
+                        "type": "string"
+                    },
+                    "slot": {
+                        "type": "integer"
+                    },
+                    "storage": {
+                        "type": "string"
+                    },
+                    "volume": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "proxmox:index/qemuVM:QemuVM": {
+            "properties": {
+                "additionalWait": {
+                    "type": "integer"
+                },
+                "agent": {
+                    "type": "integer"
+                },
+                "args": {
+                    "type": "string"
+                },
+                "balloon": {
+                    "type": "integer"
+                },
+                "bios": {
+                    "type": "string"
+                },
+                "boot": {
+                    "type": "string"
+                },
+                "bootdisk": {
+                    "type": "string"
+                },
+                "bridge": {
+                    "type": "string",
+                    "deprecationMessage": "Use `network.bridge` instead"
+                },
+                "ciWait": {
+                    "type": "integer"
+                },
+                "cicustom": {
+                    "type": "string"
+                },
+                "cipassword": {
+                    "type": "string"
+                },
+                "ciuser": {
+                    "type": "string"
+                },
+                "clone": {
+                    "type": "string"
+                },
+                "cloneWait": {
+                    "type": "integer"
+                },
+                "cloudinitCdromStorage": {
+                    "type": "string"
+                },
+                "cores": {
+                    "type": "integer"
+                },
+                "cpu": {
+                    "type": "string"
+                },
+                "defaultIpv4Address": {
+                    "type": "string"
+                },
+                "defineConnectionInfo": {
+                    "type": "boolean"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "diskGb": {
+                    "type": "number",
+                    "deprecationMessage": "Use `disk.size` instead"
+                },
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMDisk:QemuVMDisk"
+                    }
+                },
+                "forceCreate": {
+                    "type": "boolean"
+                },
+                "forceRecreateOnChangeOf": {
+                    "type": "string"
+                },
+                "fullClone": {
+                    "type": "boolean"
+                },
+                "guestAgentReadyTimeout": {
+                    "type": "integer"
+                },
+                "hastate": {
+                    "type": "string"
+                },
+                "hotplug": {
+                    "type": "string"
+                },
+                "ipconfig0": {
+                    "type": "string"
+                },
+                "ipconfig1": {
+                    "type": "string"
+                },
+                "ipconfig2": {
+                    "type": "string"
+                },
+                "iso": {
+                    "type": "string"
+                },
+                "kvm": {
+                    "type": "boolean"
+                },
+                "mac": {
+                    "type": "string",
+                    "deprecationMessage": "Use `network.macaddr` to access the auto generated MAC address"
+                },
+                "memory": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nameserver": {
+                    "type": "string"
+                },
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMNetwork:QemuVMNetwork"
+                    }
+                },
+                "nic": {
+                    "type": "string",
+                    "deprecationMessage": "Use `network` instead"
+                },
+                "numa": {
+                    "type": "boolean"
+                },
+                "onboot": {
+                    "type": "boolean"
+                },
+                "osNetworkConfig": {
+                    "type": "string"
+                },
+                "osType": {
+                    "type": "string"
+                },
+                "pool": {
+                    "type": "string"
+                },
+                "preprovision": {
+                    "type": "boolean"
+                },
+                "qemuOs": {
+                    "type": "string"
+                },
+                "rebootRequired": {
+                    "type": "boolean",
+                    "description": "Internal variable, true if any of the modified parameters require a reboot to take effect.\n"
+                },
+                "scsihw": {
+                    "type": "string"
+                },
+                "searchdomain": {
+                    "type": "string"
+                },
+                "serials": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMSerial:QemuVMSerial"
+                    }
+                },
+                "sockets": {
+                    "type": "integer"
+                },
+                "sshForwardIp": {
+                    "type": "string"
+                },
+                "sshHost": {
+                    "type": "string"
+                },
+                "sshPort": {
+                    "type": "string"
+                },
+                "sshPrivateKey": {
+                    "type": "string"
+                },
+                "sshUser": {
+                    "type": "string"
+                },
+                "sshkeys": {
+                    "type": "string"
+                },
+                "storage": {
+                    "type": "string",
+                    "deprecationMessage": "Use `disk.storage` instead"
+                },
+                "storageType": {
+                    "type": "string",
+                    "deprecationMessage": "Use `disk.type` instead"
+                },
+                "tags": {
+                    "type": "string"
+                },
+                "targetNode": {
+                    "type": "string"
+                },
+                "unusedDisks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMUnusedDisk:QemuVMUnusedDisk"
+                    },
+                    "description": "Record unused disks in proxmox. This is intended to be read-only for now.\n"
+                },
+                "vcpus": {
+                    "type": "integer"
+                },
+                "vgas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMVga:QemuVMVga"
+                    }
+                },
+                "vlan": {
+                    "type": "integer",
+                    "deprecationMessage": "Use `network.tag` instead"
+                },
+                "vmid": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "bootdisk",
+                "defaultIpv4Address",
+                "name",
+                "nameserver",
+                "rebootRequired",
+                "scsihw",
+                "searchdomain",
+                "sshHost",
+                "sshPort",
+                "targetNode",
+                "unusedDisks",
+                "vmid"
+            ],
+            "inputProperties": {
+                "additionalWait": {
+                    "type": "integer"
+                },
+                "agent": {
+                    "type": "integer"
+                },
+                "args": {
+                    "type": "string"
+                },
+                "balloon": {
+                    "type": "integer"
+                },
+                "bios": {
+                    "type": "string"
+                },
+                "boot": {
+                    "type": "string"
+                },
+                "bootdisk": {
+                    "type": "string"
+                },
+                "bridge": {
+                    "type": "string",
+                    "deprecationMessage": "Use `network.bridge` instead"
+                },
+                "ciWait": {
+                    "type": "integer"
+                },
+                "cicustom": {
+                    "type": "string"
+                },
+                "cipassword": {
+                    "type": "string"
+                },
+                "ciuser": {
+                    "type": "string"
+                },
+                "clone": {
+                    "type": "string"
+                },
+                "cloneWait": {
+                    "type": "integer"
+                },
+                "cloudinitCdromStorage": {
+                    "type": "string"
+                },
+                "cores": {
+                    "type": "integer"
+                },
+                "cpu": {
+                    "type": "string"
+                },
+                "defineConnectionInfo": {
+                    "type": "boolean"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "diskGb": {
+                    "type": "number",
+                    "deprecationMessage": "Use `disk.size` instead"
+                },
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMDisk:QemuVMDisk"
+                    }
+                },
+                "forceCreate": {
+                    "type": "boolean"
+                },
+                "forceRecreateOnChangeOf": {
+                    "type": "string"
+                },
+                "fullClone": {
+                    "type": "boolean"
+                },
+                "guestAgentReadyTimeout": {
+                    "type": "integer"
+                },
+                "hastate": {
+                    "type": "string"
+                },
+                "hotplug": {
+                    "type": "string"
+                },
+                "ipconfig0": {
+                    "type": "string"
+                },
+                "ipconfig1": {
+                    "type": "string"
+                },
+                "ipconfig2": {
+                    "type": "string"
+                },
+                "iso": {
+                    "type": "string"
+                },
+                "kvm": {
+                    "type": "boolean"
+                },
+                "mac": {
+                    "type": "string",
+                    "deprecationMessage": "Use `network.macaddr` to access the auto generated MAC address"
+                },
+                "memory": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "nameserver": {
+                    "type": "string"
+                },
+                "networks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMNetwork:QemuVMNetwork"
+                    }
+                },
+                "nic": {
+                    "type": "string",
+                    "deprecationMessage": "Use `network` instead"
+                },
+                "numa": {
+                    "type": "boolean"
+                },
+                "onboot": {
+                    "type": "boolean"
+                },
+                "osNetworkConfig": {
+                    "type": "string"
+                },
+                "osType": {
+                    "type": "string"
+                },
+                "pool": {
+                    "type": "string"
+                },
+                "preprovision": {
+                    "type": "boolean"
+                },
+                "qemuOs": {
+                    "type": "string"
+                },
+                "scsihw": {
+                    "type": "string"
+                },
+                "searchdomain": {
+                    "type": "string"
+                },
+                "serials": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMSerial:QemuVMSerial"
+                    }
+                },
+                "sockets": {
+                    "type": "integer"
+                },
+                "sshForwardIp": {
+                    "type": "string"
+                },
+                "sshPrivateKey": {
+                    "type": "string"
+                },
+                "sshUser": {
+                    "type": "string"
+                },
+                "sshkeys": {
+                    "type": "string"
+                },
+                "storage": {
+                    "type": "string",
+                    "deprecationMessage": "Use `disk.storage` instead"
+                },
+                "storageType": {
+                    "type": "string",
+                    "deprecationMessage": "Use `disk.type` instead"
+                },
+                "tags": {
+                    "type": "string"
+                },
+                "targetNode": {
+                    "type": "string"
+                },
+                "vcpus": {
+                    "type": "integer"
+                },
+                "vgas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/proxmox:index/QemuVMVga:QemuVMVga"
+                    }
+                },
+                "vlan": {
+                    "type": "integer",
+                    "deprecationMessage": "Use `network.tag` instead"
+                },
+                "vmid": {
+                    "type": "integer"
+                }
+            },
+            "requiredInputs": [
+                "targetNode"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering QemuVM resources.\n",
+                "properties": {
+                    "additionalWait": {
+                        "type": "integer"
+                    },
+                    "agent": {
+                        "type": "integer"
+                    },
+                    "args": {
+                        "type": "string"
+                    },
+                    "balloon": {
+                        "type": "integer"
+                    },
+                    "bios": {
+                        "type": "string"
+                    },
+                    "boot": {
+                        "type": "string"
+                    },
+                    "bootdisk": {
+                        "type": "string"
+                    },
+                    "bridge": {
+                        "type": "string",
+                        "deprecationMessage": "Use `network.bridge` instead"
+                    },
+                    "ciWait": {
+                        "type": "integer"
+                    },
+                    "cicustom": {
+                        "type": "string"
+                    },
+                    "cipassword": {
+                        "type": "string"
+                    },
+                    "ciuser": {
+                        "type": "string"
+                    },
+                    "clone": {
+                        "type": "string"
+                    },
+                    "cloneWait": {
+                        "type": "integer"
+                    },
+                    "cloudinitCdromStorage": {
+                        "type": "string"
+                    },
+                    "cores": {
+                        "type": "integer"
+                    },
+                    "cpu": {
+                        "type": "string"
+                    },
+                    "defaultIpv4Address": {
+                        "type": "string"
+                    },
+                    "defineConnectionInfo": {
+                        "type": "boolean"
+                    },
+                    "desc": {
+                        "type": "string"
+                    },
+                    "diskGb": {
+                        "type": "number",
+                        "deprecationMessage": "Use `disk.size` instead"
+                    },
+                    "disks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/QemuVMDisk:QemuVMDisk"
+                        }
+                    },
+                    "forceCreate": {
+                        "type": "boolean"
+                    },
+                    "forceRecreateOnChangeOf": {
+                        "type": "string"
+                    },
+                    "fullClone": {
+                        "type": "boolean"
+                    },
+                    "guestAgentReadyTimeout": {
+                        "type": "integer"
+                    },
+                    "hastate": {
+                        "type": "string"
+                    },
+                    "hotplug": {
+                        "type": "string"
+                    },
+                    "ipconfig0": {
+                        "type": "string"
+                    },
+                    "ipconfig1": {
+                        "type": "string"
+                    },
+                    "ipconfig2": {
+                        "type": "string"
+                    },
+                    "iso": {
+                        "type": "string"
+                    },
+                    "kvm": {
+                        "type": "boolean"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "deprecationMessage": "Use `network.macaddr` to access the auto generated MAC address"
+                    },
+                    "memory": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nameserver": {
+                        "type": "string"
+                    },
+                    "networks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/QemuVMNetwork:QemuVMNetwork"
+                        }
+                    },
+                    "nic": {
+                        "type": "string",
+                        "deprecationMessage": "Use `network` instead"
+                    },
+                    "numa": {
+                        "type": "boolean"
+                    },
+                    "onboot": {
+                        "type": "boolean"
+                    },
+                    "osNetworkConfig": {
+                        "type": "string"
+                    },
+                    "osType": {
+                        "type": "string"
+                    },
+                    "pool": {
+                        "type": "string"
+                    },
+                    "preprovision": {
+                        "type": "boolean"
+                    },
+                    "qemuOs": {
+                        "type": "string"
+                    },
+                    "rebootRequired": {
+                        "type": "boolean",
+                        "description": "Internal variable, true if any of the modified parameters require a reboot to take effect.\n"
+                    },
+                    "scsihw": {
+                        "type": "string"
+                    },
+                    "searchdomain": {
+                        "type": "string"
+                    },
+                    "serials": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/QemuVMSerial:QemuVMSerial"
+                        }
+                    },
+                    "sockets": {
+                        "type": "integer"
+                    },
+                    "sshForwardIp": {
+                        "type": "string"
+                    },
+                    "sshHost": {
+                        "type": "string"
+                    },
+                    "sshPort": {
+                        "type": "string"
+                    },
+                    "sshPrivateKey": {
+                        "type": "string"
+                    },
+                    "sshUser": {
+                        "type": "string"
+                    },
+                    "sshkeys": {
+                        "type": "string"
+                    },
+                    "storage": {
+                        "type": "string",
+                        "deprecationMessage": "Use `disk.storage` instead"
+                    },
+                    "storageType": {
+                        "type": "string",
+                        "deprecationMessage": "Use `disk.type` instead"
+                    },
+                    "tags": {
+                        "type": "string"
+                    },
+                    "targetNode": {
+                        "type": "string"
+                    },
+                    "unusedDisks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/QemuVMUnusedDisk:QemuVMUnusedDisk"
+                        },
+                        "description": "Record unused disks in proxmox. This is intended to be read-only for now.\n"
+                    },
+                    "vcpus": {
+                        "type": "integer"
+                    },
+                    "vgas": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/proxmox:index/QemuVMVga:QemuVMVga"
+                        }
+                    },
+                    "vlan": {
+                        "type": "integer",
+                        "deprecationMessage": "Use `network.tag` instead"
+                    },
+                    "vmid": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "language": {
+        "csharp": {
+            "compatibility": "tfbridge20",
+            "namespaces": null,
+            "packageReferences": {
+                "Pulumi": "3.*",
+                "System.Collections.Immutable": "1.6.0"
+            }
+        },
+        "go": {
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/pulumi/pulumi-proxmox/sdk/go/proxmox"
+        },
+        "nodejs": {
+            "compatibility": "tfbridge20",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "disableUnionOutputTypes": true,
+            "packageDescription": "A Pulumi package for creating and managing proxmox cloud resources.",
+            "packageName": "",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/terraform-providers/terraform-provider-proxmox)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-proxmox` repo](https://github.com/pulumi/pulumi-proxmox/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-providers/terraform-provider-proxmox` repo](https://github.com/terraform-providers/terraform-provider-proxmox/issues).",
+            "typescriptVersion": ""
+        },
+        "python": {
+            "compatibility": "tfbridge20",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/terraform-providers/terraform-provider-proxmox)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-proxmox` repo](https://github.com/pulumi/pulumi-proxmox/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-providers/terraform-provider-proxmox` repo](https://github.com/terraform-providers/terraform-provider-proxmox/issues).",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
+    }
+}
