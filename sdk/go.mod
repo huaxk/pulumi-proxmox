@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-proxmox/sdk
+module github.com/huaxk/pulumi-proxmox/sdk
 
 go 1.16
 
